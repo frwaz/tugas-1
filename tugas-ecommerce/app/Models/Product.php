@@ -16,12 +16,14 @@ class Product extends Model
         'price',
         'image',
         'stock',
+        'klik',
         'category_id',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'stock' => 'integer',
+        'klik'  => 'integer',
     ];
 
     /**

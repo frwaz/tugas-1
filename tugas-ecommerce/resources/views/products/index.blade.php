@@ -49,6 +49,7 @@
                     <th class="px-4 py-3">Kategori</th>
                     <th class="px-4 py-3">Harga</th>
                     <th class="px-4 py-3">Stok</th>
+                    <th class="px-4 py-3">Klik</th>
                     <th class="px-4 py-3">Aksi</th>
                 </tr>
             </thead>
@@ -70,6 +71,7 @@
                         <td class="px-4 py-3">{{ $product->category->name ?? '-' }}</td>
                         <td class="px-4 py-3">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                         <td class="px-4 py-3">{{ $product->stock }}</td>
+                        <td class="px-4 py-3">{{ $product->klik }}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-3">
                                 <a href="{{ route('products.show', $product) }}"
@@ -89,7 +91,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-6 text-center text-gray-500">
+                        <td colspan="7" class="px-4 py-6 text-center text-gray-500">
                             Belum ada produk.
                         </td>
                     </tr>

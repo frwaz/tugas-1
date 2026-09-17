@@ -28,6 +28,7 @@
             </p>
             <p class="text-gray-700 mb-4">{{ $product->description ?? 'Tidak ada deskripsi.' }}</p>
             <p class="text-sm text-gray-500 mb-4">Stok tersedia: {{ $product->stock }}</p>
+            <p class="text-sm text-gray-500 mb-4">Dilihat: {{ $product->klik }} kali</p>
 
             <div class="flex items-center gap-3">
                 <a href="{{ route('product.edit', $product) }}"

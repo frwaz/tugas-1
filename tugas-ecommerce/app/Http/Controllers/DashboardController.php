@@ -7,13 +7,27 @@ use App\Models\ProductCategory;
 
 class DashboardController extends Controller
 {
-    // Tampilkan halaman dashboard utama beserta ringkasan statistik toko
+    /**
+     * Tampilkan halaman dashboard beserta statistik ringkas toko:
+     * jumlah produk, total klik produk, dan jumlah kategori.
+     */
     public function index()
     {
         $totalProducts   = Product::count();
+        $totalClicks     = Product::sum('klik');
         $totalCategories = ProductCategory::count();
-        $totalClicks     = Product::sum('clicks');
 
-        return view('dashboard', compact('totalProducts', 'totalCategories', 'totalClicks'));
+        // Beberapa produk dengan klik terbanyak, untuk ditampilkan di dashboard.
+        $mostViewedProducts = Product::with('category')
+            ->orderByDesc('klik')
+            ->take(5)
+            ->get();
+
+        return view('dashboard.index', [
+            'totalProducts'      => $totalProducts,
+            'totalClicks'        => $totalClicks,
+            'totalCategories'    => $totalCategories,
+            'mostViewedProducts' => $mostViewedProducts,
+        ]);
     }
 }

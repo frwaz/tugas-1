@@ -42,6 +42,9 @@ class ProductController extends Controller
     {
         $product->load('category');
 
+        // Setiap kali halaman detail produk dibuka, hitung sebagai satu klik.
+        $product->increment('klik');
+
         return view('products.show', [
             'product' => $product,
         ]);
