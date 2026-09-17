@@ -21,6 +21,10 @@
                    class="text-sm font-medium {{ request()->routeIs('products.*') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600' }}">
                     Produk
                 </a>
+                <a href="{{ route('categories.index') }}"
+                   class="text-sm font-medium {{ request()->routeIs('categories.*') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600' }}">
+                    Kategori
+                </a>
                 <a href="{{ route('pages.index') }}"
                    class="text-sm font-medium {{ request()->routeIs('pages.*') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600' }}">
                     Halaman
@@ -87,6 +91,7 @@
         <div x-show="open" x-cloak class="md:hidden pb-4 space-y-1" style="display: none;">
             <a href="{{ route('home') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('home') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Beranda</a>
             <a href="{{ route('products.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('products.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Produk</a>
+            <a href="{{ route('categories.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('categories.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Kategori</a>
             <a href="{{ route('pages.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('pages.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Halaman</a>
             <a href="{{ route('cart.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('cart.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Keranjang</a>
             <a href="{{ route('products.create') }}" class="block rounded-md px-3 py-2 text-base font-medium text-indigo-600 hover:bg-indigo-50">+ Tambah Produk</a>

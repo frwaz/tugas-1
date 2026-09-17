@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\OrderController;
 
@@ -9,6 +10,14 @@ use App\Http\Controllers\OrderController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Kategori Produk — daftar kategori beserta jumlah produknya, plus kelola (create/edit/delete)
+Route::get('/categories', [ProductCategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/create', [ProductCategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories', [ProductCategoryController::class, 'store'])->name('categories.store');
+Route::get('/categories/{category}/edit', [ProductCategoryController::class, 'edit'])->name('categories.edit');
+Route::put('/categories/{category}', [ProductCategoryController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{category}', [ProductCategoryController::class, 'destroy'])->name('categories.destroy');
 
 // Produk — publik: lihat daftar & detail, plus kelola (create/edit/delete)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

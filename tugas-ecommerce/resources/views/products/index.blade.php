@@ -31,81 +31,83 @@
         @endif
     </form>
 
-    {{-- Grid produk --}}
-    @if ($products->isEmpty())
-        <div class="mt-16 text-center">
-            <p class="text-gray-500">Belum ada produk{{ request('category') ? ' untuk kategori ini' : '' }}.</p>
-            <a href="{{ route('products.create') }}" class="mt-4 inline-block text-indigo-600 font-medium hover:underline">
-                Tambah produk pertama →
-            </a>
-        </div>
-    @else
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach ($products as $product)
-                <div class="group rounded-xl border border-gray-200 bg-white overflow-hidden hover:shadow-md transition-shadow">
-                    <a href="{{ route('products.show', $product) }}" class="block aspect-[4/3] bg-gray-100 overflow-hidden">
-                        @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                 class="h-full w-full object-cover group-hover:scale-105 transition-transform">
-                        @else
-                            <div class="h-full w-full flex items-center justify-center text-gray-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M18 12.75h.008v.008H18v-.008zM4.5 20.25h15a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-15a1.5 1.5 0 00-1.5 1.5v13.5a1.5 1.5 0 001.5 1.5z" />
-                                </svg>
-                            </div>
-                        @endif
-                    </a>
-
-                    <div class="p-4">
-                        @if ($product->category)
-                            <span class="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 rounded-full px-2 py-0.5">
-                                {{ $product->category->name }}
-                            </span>
-                        @endif
-
-                        <h3 class="mt-2 font-semibold text-gray-900">
-                            <a href="{{ route('products.show', $product) }}" class="hover:text-indigo-600">
-                                {{ $product->name }}
-                            </a>
-                        </h3>
-
-                        <p class="mt-1 text-lg font-bold text-gray-900">
+    {{-- Tabel produk --}}
+    <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200 bg-white">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">ID</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Gambar</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Nama</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Deskripsi</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Stok</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Harga</th>
+                    <th class="px-4 py-3 text-right font-semibold text-gray-600">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @forelse ($products as $product)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 text-gray-500">{{ $product->id }}</td>
+                        <td class="px-4 py-3">
+                            @if ($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                     class="h-12 w-12 rounded-md object-cover">
+                            @else
+                                <div class="h-12 w-12 rounded-md bg-gray-100 flex items-center justify-center text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M18 12.75h.008v.008H18v-.008zM4.5 20.25h15a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-15a1.5 1.5 0 00-1.5 1.5v13.5a1.5 1.5 0 001.5 1.5z" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3 font-medium text-gray-900">
+                            {{ $product->name }}
+                            @if ($product->category)
+                                <span class="block text-xs font-normal text-indigo-600">{{ $product->category->name }}</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3 text-gray-500 max-w-xs truncate" title="{{ $product->description }}">
+                            {{ $product->description ?? '—' }}
+                        </td>
+                        <td class="px-4 py-3 {{ $product->stock > 0 ? 'text-gray-500' : 'text-red-500' }}">
+                            {{ $product->stock }}
+                        </td>
+                        <td class="px-4 py-3 text-gray-900 font-semibold whitespace-nowrap">
                             Rp{{ number_format($product->price, 0, ',', '.') }}
-                        </p>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center justify-end gap-2">
+                                <a href="{{ route('products.edit', $product) }}"
+                                   class="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                                    Edit
+                                </a>
+                                <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                      onsubmit="return confirm('Hapus produk ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="rounded-md border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="px-4 py-8 text-center text-gray-500">
+                            Belum ada produk{{ request('category') ? ' untuk kategori ini' : '' }}.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
-                        <p class="mt-1 text-xs {{ $product->stock > 0 ? 'text-gray-500' : 'text-red-500' }}">
-                            {{ $product->stock > 0 ? "Stok: {$product->stock}" : 'Stok habis' }}
-                        </p>
-
-                        <div class="mt-4 flex items-center gap-2">
-                            <a href="{{ route('products.show', $product) }}"
-                               class="flex-1 text-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
-                                Lihat Detail
-                            </a>
-                            <a href="{{ route('products.edit', $product) }}"
-                               class="rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
-                                Edit
-                            </a>
-                            <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                  onsubmit="return confirm('Hapus produk ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        class="rounded-md border border-red-200 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        {{-- Pagination --}}
-        <div class="mt-10">
-            {{ $products->links() }}
-        </div>
-    @endif
+    <div class="mt-6">
+        {{ $products->links() }}
+    </div>
 
 </div>
 @endsection
