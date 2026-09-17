@@ -60,7 +60,6 @@ class PageController extends Controller
             'is_published' => 'nullable|boolean',
         ]);
 
-        // Slug hanya dibuat ulang kalau judul berubah
         if ($validated['title'] !== $page->title) {
             $validated['slug'] = $this->generateUniqueSlug($validated['title'], $page->id);
         }
