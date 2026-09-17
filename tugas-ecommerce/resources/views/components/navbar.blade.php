@@ -40,6 +40,36 @@
                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
                     + Tambah Produk
                 </a>
+
+                {{-- Akun --}}
+                @guest
+                    <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-indigo-600">Masuk</a>
+                    <a href="{{ route('register') }}"
+                       class="inline-flex items-center rounded-md border border-indigo-600 px-4 py-2 text-sm font-semibold text-indigo-600 hover:bg-indigo-50">
+                        Daftar
+                    </a>
+                @else
+                    <div class="relative" x-data="{ userMenu: false }">
+                        <button @click="userMenu = !userMenu"
+                                class="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-indigo-600">
+                            {{ Auth::user()->name }}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </button>
+                        <div x-show="userMenu" @click.outside="userMenu = false" x-cloak
+                             class="absolute right-0 mt-2 w-44 rounded-md bg-white shadow-lg ring-1 ring-black/5 py-1 z-50">
+                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profil</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                    Keluar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endguest
             </div>
 
             {{-- Tombol menu mobile --}}
@@ -60,6 +90,18 @@
             <a href="{{ route('pages.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('pages.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Halaman</a>
             <a href="{{ route('cart.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('cart.*') ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600 hover:bg-gray-50' }}">Keranjang</a>
             <a href="{{ route('products.create') }}" class="block rounded-md px-3 py-2 text-base font-medium text-indigo-600 hover:bg-indigo-50">+ Tambah Produk</a>
+
+            @guest
+                <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50">Masuk</a>
+                <a href="{{ route('register') }}" class="block rounded-md px-3 py-2 text-base font-medium text-indigo-600 hover:bg-indigo-50">Daftar</a>
+            @else
+                <a href="{{ route('dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50">Dashboard</a>
+                <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50">Profil ({{ Auth::user()->name }})</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-red-50">Keluar</button>
+                </form>
+            @endguest
         </div>
     </nav>
 </header>
