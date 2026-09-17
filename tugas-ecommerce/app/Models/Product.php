@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -15,21 +16,19 @@ class Product extends Model
         'price',
         'image',
         'stock',
-        'clicks',
         'category_id',
     ];
 
-    // Relasi: satu produk termasuk dalam satu ProductCategory
-    // Foreign key 'category_id' cocok dengan nama method relasi ini ('category'),
-    // jadi tidak perlu disebutkan eksplisit.
-    public function category()
-    {
-        return $this->belongsTo(ProductCategory::class);
-    }
+    protected $casts = [
+        'price' => 'decimal:2',
+        'stock' => 'integer',
+    ];
 
-    // Relasi: satu produk bisa muncul di banyak order
-    public function orders()
+    /**
+     * Satu produk dimiliki satu kategori.
+     */
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 }
