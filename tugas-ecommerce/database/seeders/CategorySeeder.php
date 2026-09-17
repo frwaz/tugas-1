@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $name) {
-            Category::firstOrCreate(['name' => $name]);
+            ProductCategory::firstOrCreate(['name' => $name]);
         }
     }
 }

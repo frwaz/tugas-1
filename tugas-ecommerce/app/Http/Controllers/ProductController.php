@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -18,9 +18,10 @@ class ProductController extends Controller
                 $query->where('category_id', $categoryId);
             })
             ->latest()
-            ->get();
+            ->paginate(9)
+            ->withQueryString();
 
-        $categories = Category::orderBy('name')->get();
+        $categories = ProductCategory::orderBy('name')->get();
 
         return view('products.index', compact('products', 'categories'));
     }
@@ -28,7 +29,7 @@ class ProductController extends Controller
     // Form tambah produk baru
     public function create()
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = ProductCategory::orderBy('name')->get();
 
         return view('products.create', compact('categories'));
     }
@@ -58,7 +59,7 @@ class ProductController extends Controller
     // Form edit produk
     public function edit(Product $product)
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = ProductCategory::orderBy('name')->get();
 
         return view('products.edit', compact('product', 'categories'));
     }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\ProductCategory;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $item) {
-            $category = Category::where('name', $item['category'])->first();
+            $category = ProductCategory::where('name', $item['category'])->first();
 
             Product::firstOrCreate(
                 ['name' => $item['name']],

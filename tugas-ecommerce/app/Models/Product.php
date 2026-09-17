@@ -18,10 +18,12 @@ class Product extends Model
         'category_id',
     ];
 
-    // Relasi: satu produk termasuk dalam satu kategori
+    // Relasi: satu produk termasuk dalam satu ProductCategory
+    // Foreign key 'category_id' cocok dengan nama method relasi ini ('category'),
+    // jadi tidak perlu disebutkan eksplisit.
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(ProductCategory::class);
     }
 
     // Relasi: satu produk bisa muncul di banyak order
