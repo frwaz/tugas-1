@@ -62,7 +62,9 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 font-medium text-gray-900">
-                            {{ $product->name }}
+                            <a href="{{ route('products.show', $product) }}" class="hover:text-indigo-600 hover:underline">
+                                {{ $product->name }}
+                            </a>
                             @if ($product->category)
                                 <span class="block text-xs font-normal text-indigo-600">{{ $product->category->name }}</span>
                             @endif
