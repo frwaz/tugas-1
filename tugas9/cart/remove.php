@@ -1,0 +1,13 @@
+<?php
+require_once '../connect.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productId = (int) ($_POST['product_id'] ?? 0);
+
+    if (isset($_SESSION['cart'][$productId])) {
+        unset($_SESSION['cart'][$productId]);
+    }
+}
+
+header('Location: index.php');
+exit();
