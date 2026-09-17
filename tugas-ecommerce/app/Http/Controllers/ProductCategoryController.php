@@ -49,4 +49,54 @@ class ProductCategoryController extends Controller
             ->route('categories.index')
             ->with('success', 'Kategori berhasil ditambahkan.');
     }
+
+    /**
+     * Tampilkan halaman form edit kategori.
+     */
+    public function edit(ProductCategory $category)
+    {
+        return view('categories.edit', [
+            'category' => $category,
+        ]);
+    }
+
+    /**
+     * Validasi input perubahan data lalu simpan ke database.
+     */
+    public function update(Request $request, ProductCategory $category)
+    {
+        $validated = $request->validate([
+            // unique diabaikan untuk baris kategori ini sendiri (ignore $category->id)
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+        ], [
+            'name.required' => 'Nama kategori wajib diisi.',
+            'name.unique'   => 'Nama kategori sudah ada, gunakan nama lain.',
+        ]);
+
+        $category->update($validated);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
+    }
+
+    /**
+     * Hapus kategori berdasarkan id.
+     */
+    public function destroy(ProductCategory $category)
+    {
+        // Cegah hapus kategori yang masih punya produk supaya data produk
+        // tidak jadi yatim (category_id mengacu ke baris yang sudah hilang).
+        if ($category->products()->exists()) {
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'Kategori tidak bisa dihapus karena masih memiliki produk.');
+        }
+
+        $category->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil dihapus.');
+    }
 }

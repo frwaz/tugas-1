@@ -17,6 +17,12 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <table class="w-full text-left">
             <thead class="bg-gray-100 text-sm uppercase text-gray-600">
@@ -24,6 +30,7 @@
                     <th class="px-4 py-3">ID</th>
                     <th class="px-4 py-3">Nama Kategori</th>
                     <th class="px-4 py-3">Jumlah Produk</th>
+                    <th class="px-4 py-3">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y">
@@ -37,10 +44,24 @@
                                 {{ $category->products_count }} produk
                             </a>
                         </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('product-category.edit', $category) }}"
+                                   class="text-amber-600 hover:underline">Edit</a>
+                                <form action="{{ route('product-category.destroy', $category) }}" method="POST"
+                                      onsubmit="return confirm('Yakin ingin menghapus kategori &quot;{{ $category->name }}&quot;?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:underline">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="px-4 py-6 text-center text-gray-500">
+                        <td colspan="4" class="px-4 py-6 text-center text-gray-500">
                             Belum ada kategori.
                         </td>
                     </tr>

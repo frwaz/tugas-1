@@ -34,6 +34,12 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <table class="w-full text-left">
             <thead class="bg-gray-100 text-sm uppercase text-gray-600">
@@ -65,8 +71,20 @@
                         <td class="px-4 py-3">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                         <td class="px-4 py-3">{{ $product->stock }}</td>
                         <td class="px-4 py-3">
-                            <a href="{{ route('products.show', $product) }}"
-                               class="text-indigo-600 hover:underline">Detail</a>
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('products.show', $product) }}"
+                                   class="text-indigo-600 hover:underline">Detail</a>
+                                <a href="{{ route('product.edit', $product) }}"
+                                   class="text-amber-600 hover:underline">Edit</a>
+                                <form action="{{ route('product.destroy', $product) }}" method="POST"
+                                      onsubmit="return confirm('Yakin ingin menghapus produk &quot;{{ $product->name }}&quot;?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:underline">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

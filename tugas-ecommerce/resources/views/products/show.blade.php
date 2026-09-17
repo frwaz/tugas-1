@@ -27,7 +27,23 @@
                 Rp {{ number_format($product->price, 0, ',', '.') }}
             </p>
             <p class="text-gray-700 mb-4">{{ $product->description ?? 'Tidak ada deskripsi.' }}</p>
-            <p class="text-sm text-gray-500">Stok tersedia: {{ $product->stock }}</p>
+            <p class="text-sm text-gray-500 mb-4">Stok tersedia: {{ $product->stock }}</p>
+
+            <div class="flex items-center gap-3">
+                <a href="{{ route('product.edit', $product) }}"
+                   class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">
+                    Edit
+                </a>
+                <form action="{{ route('product.destroy', $product) }}" method="POST"
+                      onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                        Hapus
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
