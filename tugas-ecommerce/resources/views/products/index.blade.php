@@ -6,20 +6,33 @@
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold">Daftar Produk</h1>
 
-        {{-- Filter kategori sederhana --}}
-        <form method="GET" action="{{ route('products.index') }}" class="flex items-center gap-2">
-            <select name="category" onchange="this.form.submit()"
-                    class="border rounded px-3 py-1.5 text-sm">
-                <option value="">Semua Kategori</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}"
-                        @selected((string) $selectedCategory === (string) $category->id)>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-        </form>
+        <div class="flex items-center gap-3">
+            {{-- Filter kategori sederhana --}}
+            <form method="GET" action="{{ route('products.index') }}" class="flex items-center gap-2">
+                <select name="category" onchange="this.form.submit()"
+                        class="border rounded px-3 py-1.5 text-sm">
+                    <option value="">Semua Kategori</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @selected((string) $selectedCategory === (string) $category->id)>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+
+            <a href="{{ route('product.create') }}"
+               class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 whitespace-nowrap">
+                + Tambah Produk
+            </a>
+        </div>
     </div>
+
+    @if (session('success'))
+        <div class="bg-green-100 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <table class="w-full text-left">

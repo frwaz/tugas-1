@@ -1,69 +1,88 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Produk — TokoKita')
+@section('title', 'Tambah Produk - TokoKita')
 
 @section('content')
-<div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-2xl font-bold text-gray-900">Tambah Produk</h1>
+    <h1 class="text-2xl font-bold mb-6">Tambah Produk</h1>
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="mt-6 space-y-4">
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data"
+          class="bg-white shadow rounded-lg p-6 max-w-xl space-y-4">
         @csrf
 
         <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk</label>
-            <input type="text" name="name" id="name" value="{{ old('name') }}"
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                Nama Produk
+            </label>
+            <input type="text" id="name" name="name" value="{{ old('name') }}"
+                   class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-indigo-400">
         </div>
 
         <div>
-            <label for="category_id" class="block text-sm font-medium text-gray-700">Kategori</label>
-            <select name="category_id" id="category_id"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">— Tanpa Kategori —</option>
-                @foreach ($categories as $cat)
-                    <option value="{{ $cat->id }}" @selected(old('category_id') == $cat->id)>{{ $cat->name }}</option>
+            <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">
+                Kategori
+            </label>
+            <select id="category_id" name="category_id"
+                    class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-indigo-400">
+                <option value="">-- Pilih Kategori --</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                        {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
-            @error('category_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-        </div>
-
-        <div>
-            <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-            <textarea name="description" id="description" rows="3"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description') }}</textarea>
-            @error('description') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
         </div>
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label for="price" class="block text-sm font-medium text-gray-700">Harga (Rp)</label>
-                <input type="number" step="0.01" min="0" name="price" id="price" value="{{ old('price') }}"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('price') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
+                    Harga
+                </label>
+                <input type="number" step="0.01" min="0" id="price" name="price" value="{{ old('price') }}"
+                       class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-indigo-400">
             </div>
             <div>
-                <label for="stock" class="block text-sm font-medium text-gray-700">Stok</label>
-                <input type="number" min="0" name="stock" id="stock" value="{{ old('stock') }}"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('stock') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                <label for="stock" class="block text-sm font-medium text-gray-700 mb-1">
+                    Stok
+                </label>
+                <input type="number" min="0" id="stock" name="stock" value="{{ old('stock') }}"
+                       class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-indigo-400">
             </div>
         </div>
 
         <div>
-            <label for="image" class="block text-sm font-medium text-gray-700">Gambar</label>
-            <input type="file" name="image" id="image" accept="image/*"
-                   class="mt-1 block w-full text-sm text-gray-600">
-            @error('image') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+            <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
+                Deskripsi
+            </label>
+            <textarea id="description" name="description" rows="4"
+                      class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-indigo-400">{{ old('description') }}</textarea>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div>
+            <label for="image" class="block text-sm font-medium text-gray-700 mb-1">
+                Gambar Produk (opsional)
+            </label>
+            <input type="file" id="image" name="image" accept="image/*"
+                   class="w-full border rounded px-3 py-2">
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
             <button type="submit"
-                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                    class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
                 Simpan
             </button>
-            <a href="{{ route('products.index') }}" class="text-sm text-gray-500 hover:underline">Batal</a>
+            <a href="{{ route('products.index') }}" class="text-gray-600 hover:underline">
+                Batal
+            </a>
         </div>
     </form>
-</div>
 @endsection

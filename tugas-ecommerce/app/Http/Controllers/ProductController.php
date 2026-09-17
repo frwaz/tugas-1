@@ -45,4 +45,51 @@ class ProductController extends Controller
             'product' => $product,
         ]);
     }
+
+    /**
+     * Tampilkan halaman form tambah produk.
+     */
+    public function create()
+    {
+        $categories = ProductCategory::orderBy('name')->get();
+
+        return view('products.create', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * Validasi input form lalu simpan produk baru ke database.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price'       => 'required|numeric|min:0',
+            'stock'       => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'image'       => 'nullable|image|max:2048',
+        ], [
+            'name.required'        => 'Nama produk wajib diisi.',
+            'price.required'       => 'Harga wajib diisi.',
+            'price.numeric'        => 'Harga harus berupa angka.',
+            'stock.required'       => 'Stok wajib diisi.',
+            'category_id.required' => 'Kategori wajib dipilih.',
+            'category_id.exists'   => 'Kategori yang dipilih tidak valid.',
+            'image.image'          => 'File yang diunggah harus berupa gambar.',
+            'image.max'            => 'Ukuran gambar maksimal 2MB.',
+        ]);
+
+        // Simpan gambar (jika ada) ke storage/app/public/products
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        Product::create($validated);
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Produk berhasil ditambahkan.');
+    }
 }
