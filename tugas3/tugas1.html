@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Pribadi - Nazwa Fadilatul Izdihar</title>
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --dark-color: #0f172a;
+            --light-bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 100px 0 80px 0;
+        }
+
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Card Hover Effects */
+        .skill-card, .portfolio-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover, .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background-color: #dbeafe;
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Fine-Tuning Via Media Queries */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 50px 0;
+            }
+            .profile-img {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary fs-4" href="#">Nazwa<span class="text-white">.dev</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-lg-3">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Keahlian</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portofolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <header id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <span class="badge bg-primary px-3 py-2 mb-3 rounded-pill text-uppercase">Selamat Datang</span>
+                    <h1 class="display-4 fw-bold mb-3">Halo, Saya <span class="text-primary">Nazwa Fadilatul Izdihar</span></h1>
+                    <p class="lead text-light opacity-75 mb-4">IT Support, Systems & Infrastructure Specialist, and Web Creator. Berfokus pada operasional sistem, containerized deployment.</p>
+                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#portfolio" class="btn btn-primary btn-lg shadow-sm">Lihat Portofolio</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Hubungi Saya</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Profile Image" class="rounded-circle profile-img shadow-lg">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. About Section -->
+    <section id="about" class="py-5">
+        <div class="container py-4">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow" alt="Working">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold text-dark mb-3">Tentang Saya</h2>
+                    <p class="text-muted">Saya berpengalaman dalam pengelolaan infrastruktur IT, operasional data center, konfigurasi sistem mail server enterprise, serta deployment aplikasi berbasis Docker dan cloud workspace.</p>
+                    <p class="text-muted">Selain bidang infrastruktur dan sistem, saya juga memiliki ketertarikan tinggi pada pengembangan antarmuka web, penulisan sintaks landing page yang rapi, dan implementasi desain yang responsif.</p>
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <h5 class="fw-bold text-primary">Lokasi</h5>
+                            <p class="text-muted">Bogor / Jakarta, Indonesia</p>
+                        </div>
+                        <div class="col-6">
+                            <h5 class="fw-bold text-primary">Status</h5>
+                            <p class="text-muted">Open for Opportunities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Skills Section -->
+    <section id="skills" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Keahlian Utama</h2>
+                <p class="text-muted">Teknologi dan bidang yang biasa saya tangani</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 skill-card text-center">
+                        <div class="icon-box mx-auto"><i class="bi bi-server"></i></div>
+                        <h4 class="fw-bold h5 mb-3">IT & Infrastructure</h4>
+                        <p class="text-muted small">Pengelolaan mail server, Docker containerization, Nextcloud deployment, dan pemeliharaan data center.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 skill-card text-center">
+                        <div class="icon-box mx-auto"><i class="bi bi-code-slash"></i></div>
+                        <h4 class="fw-bold h5 mb-3">Web Development</h4>
+                        <p class="text-muted small">Pembuatan landing page responsif menggunakan HTML, CSS, Bootstrap 5, serta penataan template WordPress.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 skill-card text-center">
+                        <div class="icon-box mx-auto"><i class="bi bi-shield-check"></i></div>
+                        <h4 class="fw-bold h5 mb-3">System & Security</h4>
+                        <p class="text-muted small">Troubleshooting sistem, analisis log transaksi, konfigurasi whitelist/blacklist, dan optimasi jaringan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Portfolio Section -->
+    <section id="portfolio" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Portofolio & Proyek</h2>
+                <p class="text-muted">Beberapa proyek dan sistem yang telah diselesaikan</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Docker Project">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Dockerized Nextcloud & OnlyOffice</h5>
+                            <p class="card-text text-muted small">Integrasi document server ke platform Nextcloud berbasis Docker dengan penanganan loopback communication.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Mail Security">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Enterprise Mail Gateway & Whitelist</h5>
+                            <p class="card-text text-muted small">Analisis Postfix log dan re-konfigurasi aturan Rspamd untuk optimasi pengiriman email domain perusahaan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Landing Page">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Personal Landing Page & Portfolio</h5>
+                            <p class="card-text text-muted small">Desain situs pribadi modern berbasis HTML, CSS, dan Bootstrap yang responsif di seluruh perangkat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contact Section -->
+    <section id="contact" class="py-5 bg-dark text-white">
+        <div class="container py-4">
+            <div class="row gy-4 align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold text-primary mb-3">Mari Terhubung</h2>
+                    <p class="text-light opacity-75 mb-4">Memiliki pertanyaan, penawaran proyek, atau ingin berkolaborasi terkait infrastruktur IT dan pengembangan web? Silakan kirimkan pesan Anda.</p>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-envelope-at text-primary fs-4"></i>
+                            <span>email@example.com</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-geo-alt text-primary fs-4"></i>
+                            <span>Bogor / Jakarta, Indonesia</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form class="bg-secondary bg-opacity-25 p-4 rounded-4">
+                        <div class="mb-3">
+                            <label class="form-label text-light">Nama Lengkap</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Email</label>
+                            <input type="email" class="form-control bg-dark text-white border-secondary" placeholder="nama@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-light">Pesan</label>
+                            <textarea class="form-control bg-dark text-white border-secondary" rows="4" placeholder="Tuliskan pesan Anda..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="py-4 bg-black text-center text-muted border-top border-secondary border-opacity-25">
+        <div class="container">
+            <small>&copy; 2026 Nazwa Fadilatul Izdihar. All rights reserved. Built with HTML, CSS & Bootstrap 5.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
