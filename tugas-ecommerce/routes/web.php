@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\OrderController;
 
 // Halaman utama
@@ -9,9 +10,23 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Daftar produk
+// Produk — publik: lihat daftar & detail, plus kelola (create/edit/delete)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+// Halaman (Pages) — mis. "Tentang Kami", "Kebijakan Privasi", dll.
+Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+Route::get('/pages/create', [PageController::class, 'create'])->name('pages.create');
+Route::post('/pages', [PageController::class, 'store'])->name('pages.store');
+Route::get('/pages/{page:slug}', [PageController::class, 'show'])->name('pages.show');
+Route::get('/pages/{page:slug}/edit', [PageController::class, 'edit'])->name('pages.edit');
+Route::put('/pages/{page:slug}', [PageController::class, 'update'])->name('pages.update');
+Route::delete('/pages/{page:slug}', [PageController::class, 'destroy'])->name('pages.destroy');
 
 // Keranjang belanja
 Route::get('/cart', function () {
