@@ -2,29 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // Tampilkan semua produk, dengan opsi filter kategori
+    // Tampilkan semua produk, dengan opsi filter kategori (?category=ID)
     public function index(Request $request)
     {
-        $category = $request->query('category');
+        $categoryId = $request->query('category');
 
-        $products = Product::when($category, function ($query) use ($category) {
-                $query->where('category', $category);
+        $products = Product::with('category')
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
             })
             ->latest()
             ->get();
 
-        return view('products.index', compact('products'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.index', compact('products', 'categories'));
     }
 
     // Form tambah produk baru
     public function create()
     {
-        return view('products.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.create', compact('categories'));
     }
 
     // Simpan produk baru ke database
@@ -44,13 +50,17 @@ class ProductController extends Controller
     // Tampilkan detail satu produk
     public function show(Product $product)
     {
+        $product->load('category');
+
         return view('products.show', compact('product'));
     }
 
     // Form edit produk
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
     // Update data produk
@@ -84,7 +94,7 @@ class ProductController extends Controller
             'price'       => 'required|numeric|min:0',
             'image'       => 'nullable|image|max:2048',
             'stock'       => 'required|integer|min:0',
-            'category'    => 'nullable|string|max:100',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
     }
 }

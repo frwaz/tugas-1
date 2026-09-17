@@ -22,8 +22,8 @@
         <select id="category" name="category" onchange="this.form.submit()"
                 class="rounded-md border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
             <option value="">Semua Kategori</option>
-            @foreach ($products->pluck('category')->unique()->filter()->sort() as $cat)
-                <option value="{{ $cat }}" @selected(request('category') === $cat)>{{ $cat }}</option>
+            @foreach ($categories as $cat)
+                <option value="{{ $cat->id }}" @selected((string) request('category') === (string) $cat->id)>{{ $cat->name }}</option>
             @endforeach
         </select>
         @if (request('category'))
@@ -59,7 +59,7 @@
                     <div class="p-4">
                         @if ($product->category)
                             <span class="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 rounded-full px-2 py-0.5">
-                                {{ $product->category }}
+                                {{ $product->category->name }}
                             </span>
                         @endif
 

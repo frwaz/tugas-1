@@ -15,8 +15,14 @@ class Product extends Model
         'price',
         'image',
         'stock',
-        'category',
+        'category_id',
     ];
+
+    // Relasi: satu produk termasuk dalam satu kategori
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     // Relasi: satu produk bisa muncul di banyak order
     public function orders()
