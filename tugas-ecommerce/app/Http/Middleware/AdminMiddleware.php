@@ -8,13 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    /**
-     * Membatasi akses hanya untuk pengguna dengan role "admin".
-     *
-     * - Kalau belum login          -> diarahkan ke halaman login.
-     * - Kalau login tapi bukan admin -> ditolak dengan 403 Forbidden.
-     * - Kalau admin                -> lanjut ke route/controller tujuan.
-     */
+    // Hanya izinkan pengguna dengan role "admin".
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->user()) {

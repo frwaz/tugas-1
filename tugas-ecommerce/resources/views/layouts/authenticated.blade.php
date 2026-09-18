@@ -1,9 +1,4 @@
-{{--
-    Ini adalah layout "app.blade.php" bawaan Breeze, sengaja diberi nama lain
-    (authenticated.blade.php) supaya TIDAK bentrok dengan resources/views/layouts/app.blade.php
-    milik starter ini (dipakai untuk halaman publik seperti beranda & daftar produk).
-    Dipakai lewat <x-app-layout> — lihat app/View/Components/AppLayout.php.
---}}
+{{-- Layout Breeze bawaan, dipakai lewat <x-app-layout>. --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>

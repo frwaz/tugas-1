@@ -10,19 +10,8 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = [
-            'Elektronik',
-            'Fashion',
-            'Rumah Tangga',
-            'Olahraga',
-            'Kecantikan',
-            'Makanan & Minuman',
-        ];
-
-        $categoryModels = [];
-        foreach ($categories as $name) {
-            $categoryModels[$name] = ProductCategory::firstOrCreate(['name' => $name]);
-        }
+        // Kategori sudah dibuat oleh CategorySeeder; ambil datanya di sini.
+        $categoryModels = ProductCategory::all()->keyBy('name');
 
         $products = [
             ['name' => 'Smartphone X1', 'category' => 'Elektronik', 'price' => 2500000, 'stock' => 10, 'description' => 'Smartphone layar 6.5 inci, RAM 4GB.'],

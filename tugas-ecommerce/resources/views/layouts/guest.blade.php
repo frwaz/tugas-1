@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'TokoKita') }}</title>
 
-    {{-- Tailwind & Alpine lewat CDN, konsisten dengan layouts/app.blade.php
-         di starter ini — tidak perlu setup Vite/npm untuk halaman auth. --}}
+    {{-- Tailwind & Alpine lewat CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>

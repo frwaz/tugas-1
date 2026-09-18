@@ -28,6 +28,31 @@
         </div>
     </div>
 
+    <div class="mb-8">
+        <h2 class="font-semibold text-lg mb-4">Produk Terbaru</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            @forelse ($latestProducts as $product)
+                <a href="{{ route('products.show', $product) }}"
+                   class="bg-white shadow rounded-lg overflow-hidden block hover:shadow-md transition">
+                    @if ($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}"
+                             alt="{{ $product->name }}" class="w-full h-32 object-cover">
+                    @else
+                        <div class="w-full h-32 bg-gray-100 flex items-center justify-center text-xs text-gray-400">
+                            Tidak ada gambar
+                        </div>
+                    @endif
+                    <div class="p-3">
+                        <p class="font-medium text-sm truncate">{{ $product->name }}</p>
+                        <p class="text-indigo-600 text-sm">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                    </div>
+                </a>
+            @empty
+                <p class="col-span-full text-gray-500 text-center py-6">Belum ada produk.</p>
+            @endforelse
+        </div>
+    </div>
+
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <div class="px-4 py-3 border-b">
             <h2 class="font-semibold">Produk Paling Banyak Diklik</h2>

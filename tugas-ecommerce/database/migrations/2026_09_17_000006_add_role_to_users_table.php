@@ -6,18 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Menambahkan kolom "role" pada tabel users untuk membedakan
-     * pengguna biasa ("user") dan admin ("admin").
-     *
-     * Default-nya "user", jadi akun yang sudah ada / mendaftar lewat
-     * form registrasi Breeze otomatis berperan sebagai user biasa.
-     * Untuk menjadikan seseorang admin, ubah manual lewat seeder,
-     * tinker, atau langsung di database:
-     *
-     *   php artisan tinker
-     *   >>> User::where('email', 'admin@tokokita.test')->update(['role' => 'admin']);
-     */
+    // Kolom "role" untuk membedakan user biasa dan admin (default "user").
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {

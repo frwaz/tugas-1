@@ -2,12 +2,7 @@
 
 @section('title', 'Keranjang Belanja — TokoKita')
 
-{{--
-    Catatan: logika keranjang (simpan item, hitung total, dsb.) belum
-    diimplementasikan — route ini untuk sekarang hanya menampilkan halaman.
-    Nanti tinggal kirim variabel $cartItems dari controller/session dan
-    ganti blok "keranjang kosong" di bawah dengan tabel isi keranjang.
---}}
+{{-- Catatan: logika keranjang belum diimplementasikan. --}}
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -23,11 +23,18 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Produk terbaru, ditampilkan sebagai kartu yang bisa diklik di halaman utama.
+        $latestProducts = Product::with('category')
+            ->latest()
+            ->take(8)
+            ->get();
+
         return view('dashboard.index', [
             'totalProducts'      => $totalProducts,
             'totalClicks'        => $totalClicks,
             'totalCategories'    => $totalCategories,
             'mostViewedProducts' => $mostViewedProducts,
+            'latestProducts'     => $latestProducts,
         ]);
     }
 }
